@@ -25,10 +25,9 @@ const Login = () => {
         setEmail("");
         setPassword("");
         toast.success(`Welcome back ${data.user.fullname}`);
-
         navigate("/");
       }
-    } catch (error) {
+    } catch {
       toast.error("Error from Server");
     } finally {
       setLoading(false);

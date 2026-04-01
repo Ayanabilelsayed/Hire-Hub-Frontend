@@ -1,158 +1,156 @@
 import React from 'react';
-import { FiDollarSign, FiZap, FiEdit3, FiFileText, FiRefreshCw, FiStar, FiSettings, FiArrowRight } from 'react-icons/fi';
+import { 
+  FiSettings, 
+  FiMessageSquare, 
+  FiChevronRight, 
+  FiZap,
+  FiPlus,
+  FiEdit3
+} from 'react-icons/fi';
 
 const FreelancerDashboard = () => {
   return (
-    <div className="min-h-screen bg-[#121212] text-white p-6 md:p-10">
+    <div className="min-h-screen bg-[#050505] text-white p-4 sm:p-6 md:px-16 md:py-10 selection:bg-white/10">
       
-      <div className="flex items-center justify-between gap-6 mb-8">
-        <div className="flex items-center gap-5">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 w-full lg:w-auto text-center sm:text-left">
           <div className="relative">
-            <img 
-              src="https://via.placeholder.com/64" 
-              alt="Freelancer Profile" 
-              className="w-16 h-16 rounded-full border-2 border-[#2A2A2A]"
-            />
-            <div className="absolute -top-1.5 -right-1.5 bg-[#4CAF50] text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
-               <FiStar className="text-[10px]" /> 4.5
+            <div className="w-20 h-20 bg-[#121212] border border-white/10 rounded-3xl flex items-center justify-center shadow-2xl">
+              <div className="w-10 h-10 border-2 border-white/20 rounded-xl rotate-45 flex items-center justify-center">
+                <div className="w-6 h-6 border border-white/40 rounded-lg -rotate-45"></div>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-                <span className="text-[10px] text-[#4CAF50] px-2 py-0.5 bg-[#4CAF50]/10 rounded font-medium">Freelancer</span>
-                <p className="text-[11px] text-gray-400">Expert in React & Tailwind</p>
+
+          <div className="flex-1">
+            <div className="flex items-center justify-center sm:justify-start gap-3 mb-1.5">
+              <span className="text-[10px] text-white/50 px-2 py-0.5 bg-white/5 border border-white/10 rounded-full font-mono uppercase tracking-[0.2em]">
+                CLIENT_ID: #8921
+              </span>
             </div>
-            <h2 className="text-2xl font-bold mt-1">Ahmed Mohammed</h2>
-            <p className="text-xs text-gray-400 mt-1">Frontend Engineer</p>
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <h2 className="text-2xl sm:text-3xl font-black tracking-tighter text-white">Ahmed Mohammed</h2>
+              <button className="p-1 hover:bg-white/10 rounded-full transition">
+                <FiEdit3 className="text-white/40 text-sm" />
+              </button>
+            </div>
+            <p className="text-[11px] sm:text-xs text-white/40 mt-1.5 font-medium tracking-wide">
+              Frontend Engineer | <span className="text-white/70">Expert in React & Tailwind</span>
+            </p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="text-xs text-gray-400 font-medium px-4 py-1.5 border border-[#2A2A2A] rounded-full flex items-center gap-1.5">
-            <FiZap /> Add Ready Service
+
+        <div className="flex flex-row items-center gap-3 w-full lg:w-auto">
+          <button className="flex-1 lg:flex-none text-[10px] sm:text-[11px] text-[#FFC107] font-bold px-4 sm:px-6 py-3 bg-[#FFC107]/5 border border-[#FFC107]/20 rounded-full flex items-center justify-center gap-2 hover:bg-[#FFC107]/10 transition-all">
+            <FiZap className="text-sm" /> <span className="whitespace-nowrap">Browse Services</span>
           </button>
-          <button className="text-xs text-black bg-white font-bold px-5 py-2 rounded-full flex items-center gap-1.5">
-             Find New Projects <FiArrowRight className="text-sm"/>
+          <button className="flex-1 lg:flex-none text-[10px] sm:text-[11px] text-black bg-white font-black px-4 sm:px-7 py-3 rounded-full flex items-center justify-center gap-2 hover:bg-[#34d399] hover:text-white transition-all shadow-xl shadow-white/5">
+             <FiPlus className="text-base" /> <span className="whitespace-nowrap">Post Project</span>
           </button>
         </div>
       </div>
 
-      <div className="flex items-center gap-6 border-b border-[#2A2A2A] mb-10 overflow-x-auto text-sm">
-        {["Overview", "Submitted Proposals", "Current Jobs", "My Services", "Reviews & Ratings"].map((tab, index) => (
+      <div className="flex items-center gap-6 sm:gap-10 border-b border-white/5 mb-10 sm:mb-14 overflow-x-auto no-scrollbar">
+        {["Active Projects", "Pending Approval", "Completed"].map((tab, index) => (
           <button 
             key={tab}
-            className={`pb-4 whitespace-nowrap ${
-              index === 0 
-                ? "text-white border-b-2 border-white font-medium" 
-                : "text-gray-500"
+            className={`pb-4 text-[10px] sm:text-xs font-black tracking-[0.15em] sm:tracking-[0.2em] uppercase transition-all whitespace-nowrap relative ${
+              index === 0 ? "text-white" : "text-white/20 hover:text-white/50"
             }`}
           >
             {tab}
+            {index === 0 && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-white rounded-full"></span>}
           </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
-          {[
-              { label: "Available Balance", value: "$2,450", icon: FiDollarSign },
-              { label: "Completed Projects", value: "18", icon: FiFileText },
-              { label: "Pending Proposals", value: "3", icon: FiZap }
-          ].map(stat => (
-              <div key={stat.label} className="md:col-span-4 bg-black p-6 rounded-2xl border border-[#2A2A2A] flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#1A1A1A] flex items-center justify-center text-gray-500 border border-[#2A2A2A]">
-                    <stat.icon className="text-xl"/>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 tracking-wide uppercase">{stat.label}</p>
-                    <p className="text-2xl font-bold mt-1">{stat.value}</p>
-                  </div>
-              </div>
-          ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
         
-        <div className="lg:col-span-8 space-y-8">
-          
-          <div className="bg-black p-8 rounded-3xl border border-[#2A2A2A]">
-            <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-2.5">
-                  <FiZap className="text-green-400 text-lg"/>
-                  <h3 className="text-lg font-bold">Recommended Projects</h3>
+        <div className="lg:col-span-8 order-2 lg:order-1">
+          <div className="mb-6 flex justify-between items-center px-2">
+            <h3 className="text-[11px] sm:text-sm font-bold tracking-[0.15em] text-white/90 uppercase">Your Active Projects</h3>
+            <button className="text-[9px] sm:text-[10px] text-white/30 hover:text-white flex items-center gap-1.5 uppercase font-bold tracking-tighter transition">
+              Browse Freelancers <FiChevronRight />
+            </button>
+          </div>
+
+          <div className="bg-[#0f0f0f]/40 border border-white/[0.03] p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-3xl">
+             <div className="flex flex-col xl:flex-row justify-between items-start gap-8 mb-4">
+                <div className="flex-1 w-full">
+                   <span className="text-[9px] text-white/10 font-mono tracking-widest uppercase">ID: DP-441X</span>
+                   <h4 className="text-xl sm:text-2xl font-black mt-2 text-white tracking-tight leading-tight">Unified Database Architecture</h4>
+                   
+                   <div className="flex flex-wrap items-center gap-4 mt-6">
+                      <span className="flex items-center gap-2 text-[9px] sm:text-[10px] bg-white/5 border border-white/5 px-3 py-1 rounded-full text-white/50 uppercase font-bold">
+                        <div className="w-1.5 h-1.5 bg-[#4CAF50] rounded-full"></div> In Progress
+                      </span>
+                      <p className="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-tight">Freelancer:<span className="text-white/40 ml-1">Ahmed Mohammed</span></p>
+                   </div>
+
+                   <div className="mt-10 sm:mt-14 w-full">
+                      <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden">
+                         <div className="w-[65%] h-full bg-white/80 rounded-full"></div>
+                      </div>
+                      <div className="flex justify-end mt-3">
+                         <p className="text-[9px] text-white/10 font-bold tracking-widest uppercase italic">65% completed</p>
+                      </div>
+                   </div>
                 </div>
-              <a href="#" className="text-xs text-gray-500">View All &gt;</a>
-            </div>
-            
-            {[
-              { title: "Build Admin Dashboard for Real Estate", client: "Josh Works", budget: "$1,500 - $3,000", tags: ["React", "Tailwind", "Firebase"]},
-              { title: "Convert Figma Design to Clean Code", client: "Creative Agency", budget: "$800 - $1,200", tags: ["Figma", "HTML", "JS"]},
-            ].map((proj, index) => (
-              <div key={proj.title} className={`p-6 rounded-xl border border-[#2A2A2A] bg-[#121212] ${index > 0 ? 'mt-5' : ''}`}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] text-gray-500 font-medium tracking-wide uppercase">{proj.client}</p>
-                    <h4 className="text-base font-bold mt-1.5 mb-2">{proj.title}</h4>
-                    <p className="text-[11px] text-[#4CAF50] px-2.5 py-1 bg-[#4CAF50]/10 rounded font-medium inline-block">Estimated Budget: {proj.budget}</p>
-                    <div className="flex gap-2 mt-3.5">
-                      {proj.tags.map(tag => (
-                        <span key={tag} className="text-[9px] text-gray-400 px-2 py-0.5 bg-[#1A1A1A] rounded border border-[#2A2A2A] uppercase">{tag}</span>
-                      ))}
-                    </div>
+
+                <div className="flex flex-col items-start sm:items-end lg:items-start xl:items-end gap-6 w-full xl:w-auto xl:min-w-[180px]">
+                   <div className="text-left sm:text-right xl:text-right w-full">
+                      <p className="text-[9px] text-white/20 uppercase font-black tracking-[0.2em] mb-1">Allocated Budget</p>
+                      <p className="text-2xl sm:text-3xl font-black text-white tracking-tighter">$2,500</p>
+                   </div>
+
+                   <div className="flex flex-row xl:flex-col gap-3 w-full">
+                      <button className="flex-1 w-full bg-white/5 border border-white/5 hover:bg-white/10 text-white/70 text-[9px] sm:text-[10px] font-bold py-3.5 rounded-full transition-all tracking-widest uppercase">
+                        Deposit Payment
+                      </button>
+                      <button className="flex-1 w-full bg-white/5 border border-white/5 hover:bg-white/10 text-white/70 text-[9px] sm:text-[10px] font-bold py-3.5 rounded-full flex items-center justify-center gap-2 transition-all tracking-widest uppercase">
+                        <FiMessageSquare className="text-xs" /> <span className="hidden sm:inline">Contact</span>
+                      </button>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-4 space-y-8 lg:space-y-10 order-1 lg:order-2">
+          <div className="bg-[#0f0f0f]/40 border border-white/[0.03] p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem]">
+             <h3 className="text-[10px] sm:text-[11px] font-black mb-8 sm:mb-10 text-white/30 uppercase tracking-[0.3em]">Account Statistics</h3>
+             <div className="grid grid-cols-2 lg:grid-cols-1 gap-6 lg:space-y-10">
+                {[
+                  { label: "Total Payments", value: "$14,500" },
+                  { label: "Freelancers Hired", value: "03" },
+                  { label: "Completed Projects", value: "12" }
+                ].map(stat => (
+                  <div key={stat.label}>
+                    <p className="text-[9px] text-white/15 uppercase font-black mb-2 tracking-widest leading-none">{stat.label}</p>
+                    <p className="text-xl sm:text-2xl font-black text-white tracking-tighter">{stat.value}</p>
                   </div>
-                  <button className="text-xs text-white border border-[#2A2A2A] px-5 py-2 rounded-full whitespace-nowrap">
-                    Submit Proposal
-                  </button>
-                </div>
-              </div>
-            ))}
+                ))}
+             </div>
           </div>
 
-          <div className="bg-black p-8 rounded-3xl border border-[#2A2A2A]">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-lg font-bold">Recent Activity</h3>
-              <button className="text-[11px] text-gray-500 font-medium px-4 py-1.5 border border-[#2A2A2A] rounded-full flex items-center gap-1.5">
-                <FiRefreshCw /> Refresh Activity
-              </button>
+          <div className="bg-[#0f0f0f]/40 border border-white/[0.03] p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem]">
+            <h3 className="text-[10px] sm:text-[11px] font-black mb-8 sm:mb-10 text-white uppercase tracking-[0.2em] flex items-center gap-3"> 
+              <FiSettings className="text-white/20 text-xs"/> Quick Settings
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-y-5 gap-x-4">
+                {[
+                  "Profile Details", 
+                  "Billing & Payment Methods", 
+                  "Notification Preferences"
+                ].map(label => (
+                  <a key={label} href="#" className="text-[10px] sm:text-[11px] text-white/20 font-bold hover:text-white/60 transition-all tracking-wide uppercase"> 
+                    {label}
+                  </a>
+                ))}
             </div>
-            
-            {[
-                { activity: "React Dashboard Development", date: "2 days ago", amount: "$800", status: "Pending"},
-                { activity: "Landing Page Programming", date: "1 week ago", amount: "$500", status: "Rejected"},
-            ].map(log => (
-                <div key={log.activity} className="flex items-center justify-between py-5 border-b border-[#2A2A2A]">
-                    <div>
-                        <p className="text-sm font-medium text-white">{log.activity}</p>
-                        <p className="text-[11px] text-gray-500 mt-1">{log.date}</p>
-                    </div>
-                    <div className="text-right">
-                        <p className="font-bold text-gray-200">{log.amount}</p>
-                        <span className={`text-[9px] px-2.5 py-0.5 rounded-full mt-1.5 inline-block ${log.status === 'Pending' ? 'bg-[#FFC107]/10 text-[#FFC107]' : 'bg-red-400/10 text-red-400'}`}>{log.status}</span>
-                    </div>
-                </div>
-            ))}
           </div>
         </div>
 
-        <div className="lg:col-span-4 space-y-8">
-            <div className="bg-black p-8 rounded-3xl border border-[#2A2A2A]">
-                <h3 className="text-lg font-bold mb-6">Profile Status</h3>
-                <div className="space-y-3">
-                    <p className="text-xs text-gray-400">Completeness: <span className="font-bold text-white text-sm">85%</span></p>
-                    <div className="w-full h-1 bg-[#2A2A2A] rounded-full">
-                        <div className="w-[85%] h-full bg-white rounded-full"></div>
-                    </div>
-                    <a href="#" className="text-xs text-gray-500 hover:text-white">View Profile Details &gt;</a>
-                </div>
-            </div>
-            
-            <div className="bg-black p-8 rounded-3xl border border-[#2A2A2A]">
-                <h3 className="text-lg font-bold mb-6 flex items-center gap-2.5"> <FiSettings className="text-gray-500"/> Settings</h3>
-                <div className="space-y-4">
-                    <a href="#" className="flex items-center gap-3 text-xs text-gray-400 py-1"> <FiEdit3 className="text-lg text-gray-600"/> Edit Profile</a>
-                    <a href="#" className="flex items-center gap-3 text-xs text-gray-400 py-1"> <FiFileText className="text-lg text-gray-600"/> My Proposal History</a>
-                    <a href="#" className="flex items-center gap-3 text-xs text-gray-400 py-1"> <FiDollarSign className="text-lg text-gray-600"/> Withdrawal History</a>
-                </div>
-            </div>
-        </div>
       </div>
     </div>
   );

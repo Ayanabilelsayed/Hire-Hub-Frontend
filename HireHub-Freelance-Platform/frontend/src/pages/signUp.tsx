@@ -43,7 +43,7 @@ const SignUp: React.FC = () => {
 
         navigate("/");
       }
-    } catch (error) {
+    } catch {
       toast.error("Error From Server, Please try again");
     } finally {
       setLoading(false);
@@ -56,20 +56,18 @@ const SignUp: React.FC = () => {
       return () => clearTimeout(t);
     }
   }, [errorMessage]);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#050505] px-4 sm:px-6 py-10">
-      {/* LOGO */}
       <Link to="/" className="flex items-center gap-3 pb-8 sm:pb-10">
-        <img src={LOGO1} className="w-9 h-9 object-contain" />
+        <img src={LOGO1} className="w-9 h-9 object-contain" alt="Logo" />
         <span className="text-white font-black tracking-[0.3em] text-xl">
           HIREHUB
         </span>
       </Link>
 
-      {/* CARD */}
       <div className="w-full max-w-[460px]">
         <div className="bg-[#0f0f0f] border border-white/[0.08] rounded-[2.5rem] p-8 sm:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
-          {/* TITLE */}
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold text-white">Sign Up</h2>
             <p className="text-white/40 text-xs mt-2">
@@ -77,7 +75,6 @@ const SignUp: React.FC = () => {
             </p>
           </div>
 
-          {/* ERROR */}
           {errorMessage && (
             <div className="mb-5 bg-red-500/10 border border-red-500 text-red-300 text-sm px-4 py-2 rounded-xl">
               {errorMessage}
@@ -85,7 +82,6 @@ const SignUp: React.FC = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* FULL NAME */}
             <div className="relative">
               <input
                 type="text"
@@ -97,7 +93,6 @@ const SignUp: React.FC = () => {
               <LuUser className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
             </div>
 
-            {/* EMAIL */}
             <div className="relative">
               <input
                 type="email"
@@ -109,7 +104,6 @@ const SignUp: React.FC = () => {
               <LuMail className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
             </div>
 
-            {/* PASSWORD */}
             <div className="relative">
               <input
                 type="password"
@@ -121,7 +115,6 @@ const SignUp: React.FC = () => {
               <LuLock className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
             </div>
 
-            {/* ROLE SELECT (same style as Login vibe) */}
             <div className="relative">
               <select
                 value={role}
@@ -146,18 +139,16 @@ const SignUp: React.FC = () => {
               </div>
             </div>
 
-            {/* BUTTON */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-white text-black py-3.5 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-[#34d399] hover:text-white transition"
+              className="w-full bg-white text-black py-3.5 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-[#34d399] hover:text-white transition active:scale-[0.98] disabled:opacity-50"
             >
               {loading ? "Creating..." : "Create Account"}
               <LuArrowUpRight />
             </button>
           </form>
 
-          {/* LOGIN LINK */}
           <p className="text-center text-xs text-white/30 mt-8">
             Already have an account?{" "}
             <Link to="/login" className="text-white hover:underline">
