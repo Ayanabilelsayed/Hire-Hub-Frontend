@@ -1,152 +1,200 @@
 import React from 'react';
 import { 
-  FiSettings, 
-  FiMessageSquare, 
+  FiSearch, 
+  FiEdit3, 
+  FiPlus, 
   FiChevronRight, 
-  FiZap,
-  FiPlus,
-  FiEdit3
+  FiSettings,
+  FiMessageSquare,
+  FiClock
 } from 'react-icons/fi';
+import { 
+  LuHexagon, 
+  LuZap, 
+  LuLayoutGrid, 
+  LuBriefcase 
+} from "react-icons/lu";
+
+// --- Types & Interfaces ---
+
+interface StatCardProps {
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+}
+
+interface ProjectItemProps {
+  title: string;
+  client: string;
+  budget: string;
+}
+
+interface ActivityItemProps {
+  title: string;
+  date: string;
+  amount: string;
+  status: 'Pending' | 'Rejected' | 'Completed';
+}
+
+// --- Sub-Components ---
+
+const StatCard = ({ label, value, icon }: StatCardProps) => (
+  <div className="bg-[#0c0c0c] border border-white/[0.05] p-9 rounded-[2.2rem] hover:border-white/20 transition-all cursor-pointer group">
+    <div className="mb-8 text-white/10 group-hover:text-white transition-all text-2xl">{icon}</div>
+    <p className="text-[9px] text-white/20 uppercase font-black tracking-[0.2em] mb-2">{label}</p>
+    <p className="text-3xl font-bold tracking-tight">{value}</p>
+  </div>
+);
+
+const ProjectItem = ({ title, client, budget }: ProjectItemProps) => (
+  <div className="bg-[#0a0a0a] border border-white/[0.03] p-8 rounded-[2rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-[#111] transition-all group">
+    <div className="flex-1">
+      <h4 className="text-[17px] font-bold mb-2 group-hover:text-emerald-400 transition-colors">{title}</h4>
+      <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest mb-6">{client} • <span className="text-white/40">{budget}</span></p>
+      <div className="flex gap-2">
+        <span className="text-[8px] bg-white/5 px-4 py-1.5 rounded-md text-white/30 uppercase font-black">React</span>
+        <span className="text-[8px] bg-white/5 px-4 py-1.5 rounded-md text-white/30 uppercase font-black">Tailwind</span>
+      </div>
+    </div>
+    <button className="w-full md:w-auto bg-[#151515] border border-white/5 hover:bg-white hover:text-black px-10 py-3.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all">
+      Submit Proposal
+    </button>
+  </div>
+);
+
+const ActivityItem = ({ title, date, amount, status }: ActivityItemProps) => (
+  <div className="p-9 border-b border-white/[0.02] last:border-0 flex items-center justify-between hover:bg-white/[0.01] transition-all group">
+    <div className="flex items-center gap-6">
+      <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center group-hover:bg-white/10 transition-colors">
+        <FiMessageSquare className="text-white/20 text-xl group-hover:text-white" />
+      </div>
+      <div>
+        <p className="text-[15px] font-bold mb-1.5">{title}</p>
+        <p className="text-[9px] text-white/10 uppercase font-bold tracking-widest flex items-center gap-2">
+            <FiClock /> {date}
+        </p>
+      </div>
+    </div>
+    <div className="text-right">
+      <p className="text-[15px] font-bold mb-2 tracking-tighter">{amount}</p>
+      <span className={`text-[8px] uppercase font-black px-4 py-1 rounded-full tracking-widest ${
+        status === 'Pending' ? 'bg-amber-500/10 text-amber-500' : 
+        status === 'Rejected' ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'
+      }`}>
+        {status}
+      </span>
+    </div>
+  </div>
+);
+
+// --- Main Component ---
 
 const FreelancerDashboard = () => {
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-4 sm:p-6 md:px-16 md:py-10 selection:bg-white/10">
+    <div className="min-h-screen bg-black text-white p-6 md:px-20 md:py-16 font-sans">
       
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 w-full lg:w-auto text-center sm:text-left">
-          <div className="relative">
-            <div className="w-20 h-20 bg-[#121212] border border-white/10 rounded-3xl flex items-center justify-center shadow-2xl">
-              <div className="w-10 h-10 border-2 border-white/20 rounded-xl rotate-45 flex items-center justify-center">
-                <div className="w-6 h-6 border border-white/40 rounded-lg -rotate-45"></div>
-              </div>
-            </div>
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-8">
+        <div className="flex items-center gap-6">
+          <div className="w-16 h-16 bg-[#111] border border-white/10 rounded-2xl flex items-center justify-center">
+            <LuHexagon className="text-3xl text-white/40" />
           </div>
-
-          <div className="flex-1">
-            <div className="flex items-center justify-center sm:justify-start gap-3 mb-1.5">
-              <span className="text-[10px] text-white/50 px-2 py-0.5 bg-white/5 border border-white/10 rounded-full font-mono uppercase tracking-[0.2em]">
-                CLIENT_ID: #8921
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="bg-emerald-500/10 text-emerald-400 text-[8px] font-black px-2 py-0.5 rounded-sm uppercase flex items-center gap-1">
+                <div className="w-1 h-1 bg-emerald-400 rounded-full animate-pulse"></div> AVAILABLE
               </span>
+              <span className="bg-amber-400/10 text-amber-400 text-[8px] font-black px-2 py-0.5 rounded-sm uppercase">★ 4.9</span>
             </div>
-            <div className="flex items-center justify-center sm:justify-start gap-2">
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tighter text-white">Ahmed Mohammed</h2>
-              <button className="p-1 hover:bg-white/10 rounded-full transition">
-                <FiEdit3 className="text-white/40 text-sm" />
-              </button>
+            <div className="flex items-center gap-3">
+              <h2 className="text-3xl font-bold tracking-tight">Ahmed Mohammed</h2>
+              <FiEdit3 className="text-white/20 text-sm cursor-pointer hover:text-white transition-colors" />
             </div>
-            <p className="text-[11px] sm:text-xs text-white/40 mt-1.5 font-medium tracking-wide">
-              Frontend Engineer | <span className="text-white/70">Expert in React & Tailwind</span>
-            </p>
+            <p className="text-[11px] text-white/30 font-medium mt-1 uppercase tracking-wider">Frontend Engineer | Expert in React & Tailwind</p>
           </div>
         </div>
 
-        <div className="flex flex-row items-center gap-3 w-full lg:w-auto">
-          <button className="flex-1 lg:flex-none text-[10px] sm:text-[11px] text-[#FFC107] font-bold px-4 sm:px-6 py-3 bg-[#FFC107]/5 border border-[#FFC107]/20 rounded-full flex items-center justify-center gap-2 hover:bg-[#FFC107]/10 transition-all">
-            <FiZap className="text-sm" /> <span className="whitespace-nowrap">Browse Services</span>
+        <div className="flex items-center gap-4 w-full md:w-auto">
+          <button className="flex-1 md:flex-none text-[10px] text-white/40 font-bold px-7 py-3.5 bg-[#0c0c0c] border border-white/5 rounded-full uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+            <FiPlus className="text-sm" /> Add Ready Service
           </button>
-          <button className="flex-1 lg:flex-none text-[10px] sm:text-[11px] text-black bg-white font-black px-4 sm:px-7 py-3 rounded-full flex items-center justify-center gap-2 hover:bg-[#34d399] hover:text-white transition-all shadow-xl shadow-white/5">
-             <FiPlus className="text-base" /> <span className="whitespace-nowrap">Post Project</span>
+          <button className="flex-1 md:flex-none text-[10px] text-black bg-white font-black px-8 py-3.5 rounded-full flex items-center justify-center gap-2 uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-xl shadow-white/5">
+             <FiSearch className="text-sm" /> Find New Projects
           </button>
         </div>
       </div>
 
-      <div className="flex items-center gap-6 sm:gap-10 border-b border-white/5 mb-10 sm:mb-14 overflow-x-auto no-scrollbar">
-        {["Active Projects", "Pending Approval", "Completed"].map((tab, index) => (
-          <button 
-            key={tab}
-            className={`pb-4 text-[10px] sm:text-xs font-black tracking-[0.15em] sm:tracking-[0.2em] uppercase transition-all whitespace-nowrap relative ${
-              index === 0 ? "text-white" : "text-white/20 hover:text-white/50"
-            }`}
-          >
-            {tab}
-            {index === 0 && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-white rounded-full"></span>}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <div className="lg:col-span-8 order-2 lg:order-1">
-          <div className="mb-6 flex justify-between items-center px-2">
-            <h3 className="text-[11px] sm:text-sm font-bold tracking-[0.15em] text-white/90 uppercase">Your Active Projects</h3>
-            <button className="text-[9px] sm:text-[10px] text-white/30 hover:text-white flex items-center gap-1.5 uppercase font-bold tracking-tighter transition">
-              Browse Freelancers <FiChevronRight />
+        {/* Left Column */}
+        <div className="lg:col-span-8 space-y-8">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <StatCard label="Available Balance" value="$2,450" icon={<LuLayoutGrid />} />
+            <StatCard label="Completed Projects" value="18" icon={<LuZap />} />
+            <StatCard label="Pending Proposals" value="3" icon={<LuHexagon />} />
+            <StatCard label="Available Balance" value="$2,450" icon={<LuLayoutGrid />} />
+            <StatCard label="Completed Projects" value="18" icon={<LuZap />} />
+            <StatCard label="Pending Proposals" value="3" icon={<LuHexagon />} />
+          </div>
+
+          {/* Recommended Projects Card */}
+          <div className="bg-[#080808] border border-white/5 rounded-[2.5rem] p-10">
+            <div className="flex justify-between items-center mb-10">
+              <div className="flex items-center gap-4">
+                 <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center">
+                    <LuBriefcase className="text-emerald-500 text-lg" />
+                 </div>
+                 <div>
+                    <h3 className="text-[11px] font-black tracking-widest text-white uppercase">Recommended Projects</h3>
+                    <p className="text-[9px] text-white/20 uppercase font-bold mt-1 tracking-tighter">Matches your skills</p>
+                 </div>
+              </div>
+              <button className="text-[9px] text-white/20 hover:text-white uppercase font-bold tracking-widest transition flex items-center gap-1.5">Browse All <FiChevronRight /></button>
+            </div>
+            
+            <div className="space-y-4">
+              <ProjectItem title="Build Admin Dashboard for Real Estate" client="Horizon Corp" budget="$1,500 - $2,500" />
+              <ProjectItem title="Convert Figma Design to Clean Code" client="Creative Agency" budget="$500" />
+            </div>
+          </div>
+
+          {/* Recent Activity Section */}
+          <div className="pt-6">
+            <h3 className="text-[10px] font-black tracking-[0.3em] text-white/30 uppercase mb-6 px-1">Recent Activity</h3>
+            <div className="bg-[#080808] border border-white/5 rounded-[2.5rem] overflow-hidden">
+                <ActivityItem title="React Dashboard Development" date="2 days ago" amount="$800" status="Pending" />
+                <ActivityItem title="Landing Page Programming" date="1 week ago" amount="$300" status="Rejected" />
+            </div>
+          </div>
+        </div>
+
+        {/* Sidebar */}
+        <div className="lg:col-span-4 space-y-6">
+          <div className="bg-[#0c0c0c] border border-white/5 p-10 rounded-[2.5rem]">
+            <div className="flex justify-between items-center mb-10">
+              <h3 className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">Profile Status</h3>
+              <span className="text-[11px] font-bold text-white/60">85%</span>
+            </div>
+            <div className="flex gap-2 mb-10">
+              {[1, 2, 3, 4, 5].map(i => <div key={i} className={`h-1.5 flex-1 rounded-full ${i <= 4 ? 'bg-white' : 'bg-white/10'}`}></div>)}
+            </div>
+            <button className="w-full bg-white/5 border border-white/10 hover:bg-white hover:text-black py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">
+              View Profile as Client
             </button>
           </div>
 
-          <div className="bg-[#0f0f0f]/40 border border-white/[0.03] p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-3xl">
-             <div className="flex flex-col xl:flex-row justify-between items-start gap-8 mb-4">
-                <div className="flex-1 w-full">
-                   <span className="text-[9px] text-white/10 font-mono tracking-widest uppercase">ID: DP-441X</span>
-                   <h4 className="text-xl sm:text-2xl font-black mt-2 text-white tracking-tight leading-tight">Unified Database Architecture</h4>
-                   
-                   <div className="flex flex-wrap items-center gap-4 mt-6">
-                      <span className="flex items-center gap-2 text-[9px] sm:text-[10px] bg-white/5 border border-white/5 px-3 py-1 rounded-full text-white/50 uppercase font-bold">
-                        <div className="w-1.5 h-1.5 bg-[#4CAF50] rounded-full"></div> In Progress
-                      </span>
-                      <p className="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-tight">Freelancer:<span className="text-white/40 ml-1">Ahmed Mohammed</span></p>
-                   </div>
-
-                   <div className="mt-10 sm:mt-14 w-full">
-                      <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden">
-                         <div className="w-[65%] h-full bg-white/80 rounded-full"></div>
-                      </div>
-                      <div className="flex justify-end mt-3">
-                         <p className="text-[9px] text-white/10 font-bold tracking-widest uppercase italic">65% completed</p>
-                      </div>
-                   </div>
-                </div>
-
-                <div className="flex flex-col items-start sm:items-end lg:items-start xl:items-end gap-6 w-full xl:w-auto xl:min-w-[180px]">
-                   <div className="text-left sm:text-right xl:text-right w-full">
-                      <p className="text-[9px] text-white/20 uppercase font-black tracking-[0.2em] mb-1">Allocated Budget</p>
-                      <p className="text-2xl sm:text-3xl font-black text-white tracking-tighter">$2,500</p>
-                   </div>
-
-                   <div className="flex flex-row xl:flex-col gap-3 w-full">
-                      <button className="flex-1 w-full bg-white/5 border border-white/5 hover:bg-white/10 text-white/70 text-[9px] sm:text-[10px] font-bold py-3.5 rounded-full transition-all tracking-widest uppercase">
-                        Deposit Payment
-                      </button>
-                      <button className="flex-1 w-full bg-white/5 border border-white/5 hover:bg-white/10 text-white/70 text-[9px] sm:text-[10px] font-bold py-3.5 rounded-full flex items-center justify-center gap-2 transition-all tracking-widest uppercase">
-                        <FiMessageSquare className="text-xs" /> <span className="hidden sm:inline">Contact</span>
-                      </button>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-4 space-y-8 lg:space-y-10 order-1 lg:order-2">
-          <div className="bg-[#0f0f0f]/40 border border-white/[0.03] p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem]">
-             <h3 className="text-[10px] sm:text-[11px] font-black mb-8 sm:mb-10 text-white/30 uppercase tracking-[0.3em]">Account Statistics</h3>
-             <div className="grid grid-cols-2 lg:grid-cols-1 gap-6 lg:space-y-10">
-                {[
-                  { label: "Total Payments", value: "$14,500" },
-                  { label: "Freelancers Hired", value: "03" },
-                  { label: "Completed Projects", value: "12" }
-                ].map(stat => (
-                  <div key={stat.label}>
-                    <p className="text-[9px] text-white/15 uppercase font-black mb-2 tracking-widest leading-none">{stat.label}</p>
-                    <p className="text-xl sm:text-2xl font-black text-white tracking-tighter">{stat.value}</p>
-                  </div>
-                ))}
-             </div>
-          </div>
-
-          <div className="bg-[#0f0f0f]/40 border border-white/[0.03] p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem]">
-            <h3 className="text-[10px] sm:text-[11px] font-black mb-8 sm:mb-10 text-white uppercase tracking-[0.2em] flex items-center gap-3"> 
-              <FiSettings className="text-white/20 text-xs"/> Quick Settings
+          <div className="bg-[#0c0c0c] border border-white/5 p-10 rounded-[2.5rem]">
+            <h3 className="text-[10px] font-bold mb-10 text-white/40 uppercase tracking-[0.2em] flex items-center gap-2.5">
+                <FiSettings /> Settings
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-y-5 gap-x-4">
-                {[
-                  "Profile Details", 
-                  "Billing & Payment Methods", 
-                  "Notification Preferences"
-                ].map(label => (
-                  <a key={label} href="#" className="text-[10px] sm:text-[11px] text-white/20 font-bold hover:text-white/60 transition-all tracking-wide uppercase"> 
-                    {label}
-                  </a>
-                ))}
+            <div className="flex flex-col gap-8">
+              {["Edit Profile", "Manage Portfolio", "Withdraw Funds"].map(label => (
+                <a key={label} href="#" className="text-[10px] text-white/20 font-black hover:text-white transition-all uppercase tracking-[0.1em] flex justify-between items-center group"> 
+                  {label}
+                  <FiChevronRight className="opacity-0 group-hover:opacity-100 transition-all" />
+                </a>
+              ))}
             </div>
           </div>
         </div>
