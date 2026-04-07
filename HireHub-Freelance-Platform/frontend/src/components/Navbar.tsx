@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
               {/* Logout */}
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 bg-[white] hover:bg-[#34d399] rounded-lg transition-all duration-300"
+                className="px-4 py-2 bg-[#34d399] rounded-lg transition-all duration-300"
               >
                 Logout
               </button>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserRoles } from "../types/user";
-import FreelancerDashboard from "./freelancerDashboard";
+import FreelancerDashboard from "../freelancer/freelancerDashboard";
 import ClientDashboard from "./clientDashboard";
 import Welcome from "./welcome";
 import { useAuthStore } from "../stores/useAuthStore";
