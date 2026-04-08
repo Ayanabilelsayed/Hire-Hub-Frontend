@@ -7,6 +7,8 @@ import AppRoute from "./routes/AppRoute";
 
 const App: React.FC = () => {
   const location = useLocation();
+
+
   const hideLayout = 
     location.pathname === "/login" || 
     location.pathname === "/signup";
@@ -27,6 +29,7 @@ const App: React.FC = () => {
 
       <div className="flex flex-col min-h-screen bg-[#050505] text-white">
         
+
         {!hideLayout && <Navbar />}
 
         <main className={`flex-grow ${!hideLayout ? "pt-24" : ""}`}>
